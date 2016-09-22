@@ -20,8 +20,11 @@ var pie = {
   topping: "streusel",
   bakeTemp: "350 degrees",
   bakeTime: "75 minutes",
-  customer: "Tammy"
+  customer: "Tammy",
+  decorate: cake.decorate
 }
+
+
 
 function makeCake() {
   var updateCakeStatus = updateStatus.bind(this);
@@ -40,7 +43,7 @@ function updateStatus(statusText) {
 function bake(updateFunction) {
   var status = "Baking at " + this.bakeTemp + " for " + this.bakeTime
   setTimeout(()=>{
-    cool(updateFunction)
+    cool.call(this, updateFunction)
   }, 2000)
   updateFunction(status)
 }
@@ -48,7 +51,7 @@ function bake(updateFunction) {
 function mix(updateFunction) {
   var status = "Mixing " + this.ingredients.join(", ")
   setTimeout(()=>{
-    bake(updateFunction)
+    bake.call(this, updateFunction)
   }, 2000)
   updateFunction(status)
 }
@@ -73,7 +76,6 @@ function makeDessert() {
 }
 
 function serve(message, customer) {
-  debugger;
   //you shouldn't need to alter this function
   return(customer + ", your " + this.name + " is ready to eat! " + message)
 }
